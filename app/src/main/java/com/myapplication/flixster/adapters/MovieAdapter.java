@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.myapplication.flixster.R;
 import com.myapplication.flixster.models.Movie;
 
+import java.lang.annotation.Target;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholer> {
@@ -41,12 +43,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholer> {
 
         int orientation = holder.mView.getResources().getConfiguration().orientation;
 
-        if(orientation== Configuration.ORIENTATION_PORTRAIT)
-        {
-            Glide.with(holder.mView.getContext()).load(holder.item.getPosterPath()).into(holder.ivPoster);
-        }
-        else{
-            Glide.with(holder.mView.getContext()).load(holder.item.getBackdropPath()).into(holder.ivPoster);
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Glide.with(holder.mView.getContext())
+                    .load(holder.item.getPosterPath())
+                    .override(300, 300)
+                    .placeholder(R.drawable.placeholder_movie)
+                    .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .into(holder.ivPoster);
+        } else {
+            Glide.with(holder.mView.getContext())
+                    .load(holder.item.getBackdropPath())
+                    .override(400, 300)
+                    .placeholder(R.drawable.placeholder_movie)
+                    .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .into(holder.ivPoster);
         }
     }
 
