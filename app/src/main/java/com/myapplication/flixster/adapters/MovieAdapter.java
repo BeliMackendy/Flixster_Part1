@@ -1,5 +1,6 @@
 package com.myapplication.flixster.adapters;
 
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholer> {
         holder.tvTitle.setText(holder.item.getTitle());
         holder.tvOverview.setText(holder.item.getOverView());
 
-        Glide.with(holder.mView.getContext()).load(holder.item.getPosterPath()).into(holder.ivPoster);
+        int orientation = holder.mView.getResources().getConfiguration().orientation;
 
-
+        if(orientation== Configuration.ORIENTATION_PORTRAIT)
+        {
+            Glide.with(holder.mView.getContext()).load(holder.item.getPosterPath()).into(holder.ivPoster);
+        }
+        else{
+            Glide.with(holder.mView.getContext()).load(holder.item.getBackdropPath()).into(holder.ivPoster);
+        }
     }
 
     @Override
