@@ -118,14 +118,24 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void configureHolder2(Viewholer2 holder, int position) {
         holder.item = movies.get(position);
-        Glide.with(holder.mView.getContext())
-                .load(holder.item.getPosterPath())
-                .placeholder(R.drawable.placeholder_movie)
-                .transition(new DrawableTransitionOptions().crossFade(5000))
-                .transform(new RoundedCorners(10))
-                .into(holder.ivmovie);
-    }
+        int orientation = holder.mView.getResources().getConfiguration().orientation;
 
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Glide.with(holder.mView.getContext())
+                    .load(holder.item.getPosterPath())
+                    .placeholder(R.drawable.placeholder_movie)
+                    .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .transform(new RoundedCorners(10))
+                    .into(holder.ivmovie);
+        } else {
+            Glide.with(holder.mView.getContext())
+                    .load(holder.item.getBackdropPath())
+                    .placeholder(R.drawable.placeholder_movie)
+                    .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .transform(new RoundedCorners(10))
+                    .into(holder.ivmovie);
+        }
+    }
 
     @Override
     public int getItemCount() {
