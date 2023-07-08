@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.myapplication.flixster.R;
 import com.myapplication.flixster.models.Movie;
@@ -46,16 +47,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholer> {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(holder.mView.getContext())
                     .load(holder.item.getPosterPath())
-                    .override(300, 300)
                     .placeholder(R.drawable.placeholder_movie)
                     .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .transform(new RoundedCorners(10))
                     .into(holder.ivPoster);
         } else {
             Glide.with(holder.mView.getContext())
                     .load(holder.item.getBackdropPath())
-                    .override(400, 300)
                     .placeholder(R.drawable.placeholder_movie)
                     .transition(new DrawableTransitionOptions().crossFade(5000))
+                    .transform(new RoundedCorners(10))
                     .into(holder.ivPoster);
         }
     }
